@@ -25,8 +25,8 @@ def get_status(user_id):
     }
     try:
         status = requests.post(
-                    BASE_URL, params=params
-                 ).json()['response'][0]['online']
+            BASE_URL, params=params
+        ).json()['response'][0]['online']
     except requests.exceptions.RequestException as e:
         raise SystemExit(e)
     return status
