@@ -18,13 +18,15 @@ e = 'Ошибка соеденения'
 
 def get_status(user_id):
     params = {
-    'user_id': user_id,
-    'v': v,
-    'access_token': access_token,
-    'fields': 'online'
+        'user_ids': user_id,
+        'v': v,
+        'access_token': access_token,
+        'fields': 'online'
     }
     try:
-        status = requests.post(BASE_URL, data=params).json()['response'][0]['online']
+        status = requests.post(
+                    BASE_URL, params=params
+                 ).json()['response'][0]['online']
     except requests.exceptions.RequestException as e:
         raise SystemExit(e)
     return status
