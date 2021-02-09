@@ -7,11 +7,13 @@ from twilio.rest import Client
 
 load_dotenv()
 
-account_sid = os.getenv('TWILIO_ACCOUNT_SID')
-auth_token = os.getenv('TWILIO_AUTH_TOKEN')
-access_token = os.getenv('ACCESS_TOKEN')
-v = os.getenv('API_V')
-client = Client(account_sid, auth_token)
+ACCOUNT_SID = os.getenv('TWILIO_ACCOUNT_SID')
+AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN')
+ACCESS_TOKEN = os.getenv('ACCESS_TOKEN')
+NUMBER_TO = os.getenv('NUMBER_TO')
+NUMBER_FROM = os.getenv('NUMBER_FROM')
+V = os.getenv('API_V')
+client = Client(ACCESS_TOKEN, AUTH_TOKEN)
 BASE_URL = 'https://api.vk.com/method/users.get'
 e = 'Ошибка соеденения'
 
@@ -19,8 +21,8 @@ e = 'Ошибка соеденения'
 def get_status(user_id):
     params = {
         'user_ids': user_id,
-        'v': v,
-        'access_token': access_token,
+        'v': V,
+        'access_token': ACCESS_TOKEN,
         'fields': 'online'
     }
     try:
@@ -34,8 +36,8 @@ def get_status(user_id):
 
 def send_sms(sms_text):
     message = client.messages.create(
-        to=os.getenv('NUM_TO'),
-        from_=os.getenv('NUM_FROM'),
+        to=NUMBER_TO,
+        from_=NUMBER_FROM,
         body=sms_text
     )
     return message.sid
